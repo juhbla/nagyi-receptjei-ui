@@ -9,7 +9,7 @@ export function Login({ pageName }) {
       <div className="col-12">
         <h1>{pageName}</h1>
         <EmailInput />
-        <PasswordInput />
+        <PasswordInput placeholder="jelszó" />
         <Button type="submit" className="btn btn-success mt-3" text="Belépés" />
       </div>
       <div className="row">
