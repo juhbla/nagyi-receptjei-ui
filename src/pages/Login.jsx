@@ -15,10 +15,7 @@ export function Login({ pageName }) {
       <div className="row">
         <div className="col-12">
           <div>
-            <p>Nincs még fiókod?</p>
-          </div>
-          <div>
-            <Link to="/register">Regisztrálj!</Link>
+            <Link to="/register">Nincs még fiókod? Regisztrálj!</Link>
           </div>
         </div>
       </div>
