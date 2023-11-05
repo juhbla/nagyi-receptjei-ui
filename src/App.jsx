@@ -16,9 +16,21 @@ function App() {
     <BrowserRouter>
       <main className="container">
         <Routes>
-          <Route exact path={HOME_PAGE.path} element={<Home />} />
-          <Route exact path={REGISTER_PAGE.path} element={<Register />} />
-          <Route exact path={ADMIN_PAGE.path} element={<Admin />} />
+          <Route
+            exact
+            path={HOME_PAGE.path}
+            element={<Home pageName={HOME_PAGE.name} />}
+          />
+          <Route
+            exact
+            path={REGISTER_PAGE.path}
+            element={<Register pageName={REGISTER_PAGE.name} />}
+          />
+          <Route
+            exact
+            path={ADMIN_PAGE.path}
+            element={<Admin pageName={ADMIN_PAGE.name} />}
+          />
           <Route
             exact
             path={LOGIN_PAGE.path}
