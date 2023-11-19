@@ -23,10 +23,7 @@ const ReceiptCard = ({ receipt }) => {
     imageSource = noImage;
   }
 
-  const contents = [
-    { key: 1, value: description },
-    { key: 2, value: `${price}.- Forint` },
-  ];
+  const contents = [{ key: 1, value: description }]; // TODO: adattagok megadása.
 
   return (
     <Card
