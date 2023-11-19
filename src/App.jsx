@@ -10,7 +10,7 @@ import { Login } from "./pages/Login";
 import "./App.css";
 
 const App = () => {
-  const { HOME_PAGE, REGISTER_PAGE, LOGIN_PAGE, ADMIN_PAGE } = pages;
+  const { HOME_PAGE, REGISTER_PAGE, LOGIN_PAGE } = pages;
 
   return (
     <BrowserRouter>
