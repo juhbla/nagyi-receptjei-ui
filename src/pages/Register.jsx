@@ -1,7 +1,7 @@
 import { EmailInput } from "../components/common/EmailInput";
 import { PasswordInput } from "../components/common/PasswordInput";
-import { Button } from "../components/common/Button";
-import { TextInput } from "../components/common/TextInput";
+import Button from "../components/common/Button";
+import TextInput from "../components/common/TextInput";
 
 export function Register({ pageName }) {
   return (
