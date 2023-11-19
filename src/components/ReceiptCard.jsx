@@ -11,7 +11,7 @@ const ReceiptCard = ({ receipt }) => {
     console.log("Képfeltöltés...");
   };
 
-  const { name, description, price, photoFileName } = receipt;
+  const { name, description, photoFileName } = receipt;
 
   let imageSource;
 
