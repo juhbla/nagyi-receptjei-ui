@@ -3,7 +3,7 @@ export const APPLICATION_NAME = "Nagyi receptjei";
 const pages = {
   HOME_PAGE: {
     name: "Receptek",
-    path: "/receptek",
+    path: "/",
   },
   REGISTER_PAGE: {
     name: "Regisztráció",

@@ -1,6 +1,6 @@
 import { EmailInput } from "../components/common/EmailInput";
 import { PasswordInput } from "../components/common/PasswordInput";
-import { Button } from "../components/common/Button";
+import Button from "../components/common/Button";
 import { Link } from "react-router-dom";
 
 export function Login({ pageName }) {
