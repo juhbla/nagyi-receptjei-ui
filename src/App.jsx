@@ -1,7 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import pages from "./config/pages";
+import pages, { APPLICATION_NAME } from "./config/pages";
 
+import Navbar from "./components/common/Navbar";
 import { Home } from "./pages/Home";
 import { Register } from "./pages/Register";
 import { Login } from "./pages/Login";
@@ -9,11 +10,20 @@ import { Admin } from "./pages/Admin";
 
 import "./App.css";
 
-function App() {
+const App = () => {
   const { HOME_PAGE, REGISTER_PAGE, LOGIN_PAGE, ADMIN_PAGE } = pages;
 
   return (
     <BrowserRouter>
+      <Navbar
+        title={APPLICATION_NAME}
+        homeRoute={HOME_PAGE.path}
+        routes={[
+          { name: REGISTER_PAGE.name, path: REGISTER_PAGE.path },
+          { name: LOGIN_PAGE.name, path: LOGIN_PAGE.path },
+          { name: ADMIN_PAGE.name, path: ADMIN_PAGE.path },
+        ]}
+      />
       <main className="container">
         <Routes>
           <Route
@@ -40,6 +50,6 @@ function App() {
       </main>
     </BrowserRouter>
   );
-}
+};
 
 export default App;

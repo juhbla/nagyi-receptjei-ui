@@ -1,12 +1,18 @@
-import Card from "../components/common/Card";
-
-import hamburger from "../img/hamburger.jpg";
+import ReceiptCard from "../components/ReceiptCard";
 
 export function Home({ pageName }) {
-  const contents = [
+  const receipts = [
     {
-      key: 1,
-      value: `FEFOEJFOJFOEJFOEJFOEJFOPEFJOPEJFOPEJFPOEJPOEJFPOEJOPEJFPOEFOPEJFPOEJFPOEFPOEFOPEJFEPOFJEPOFJOPEJFEPOJFEPOFJOPFJEOPFJEPOFJEPOFOPEF`,
+      id: 1,
+      name: `Hamburger`,
+      description: "Ízletes hamburger nagyi konyhájából!",
+      price: `1.500`,
+    },
+    {
+      id: 2,
+      name: `Hot Dog`,
+      description: "Ízletes hot-dog nagyi konyhájából!",
+      price: `2.500`,
     },
   ];
 
@@ -17,56 +23,13 @@ export function Home({ pageName }) {
           <h1>{pageName}</h1>
         </div>
       </div>
-      <div className="row">
-        <div className="col-6">
-          <Card
-            title="hamburger"
-            imageSource={hamburger}
-            imageAlt="hamburger"
-            contents={contents}
-          />
-        </div>
-        <div className="col-6">
-          <Card
-            title="hamburger"
-            imageSource={hamburger}
-            imageAlt="hamburger"
-            contents={contents}
-          />
-        </div>
-        <div className="col-6">
-          <Card
-            title="hamburger"
-            imageSource={hamburger}
-            imageAlt="hamburger"
-            contents={contents}
-          />
-        </div>
-        <div className="col-6">
-          <Card
-            title="hamburger"
-            imageSource={hamburger}
-            imageAlt="hamburger"
-            contents={contents}
-          />
-        </div>
-        <div className="col-6">
-          <Card
-            title="hamburger"
-            imageSource={hamburger}
-            imageAlt="hamburger"
-            contents={contents}
-          />
-        </div>
-        <div className="col-6">
-          <Card
-            title="hamburger"
-            imageSource={hamburger}
-            imageAlt="hamburger"
-            contents={contents}
-          />
-        </div>
-      </div>
+      <section className="row">
+        {receipts.map((receipt) => (
+          <article key={receipt.id} className="col-sm-12 col-md-12 col-lg-4">
+            <ReceiptCard receipt={receipt} />
+          </article>
+        ))}
+      </section>
     </>
   );
 }
