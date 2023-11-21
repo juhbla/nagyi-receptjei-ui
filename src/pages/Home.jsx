@@ -1,5 +1,6 @@
 import ReceiptCard from "../components/ReceiptCard";
 import AddReceiptCard from "../components/AddReceiptCard";
+import Modal from "../components/common/Modal";
 
 export function Home({ pageName }) {
   const receipts = [
@@ -41,6 +42,11 @@ export function Home({ pageName }) {
             <ReceiptCard receipt={receipt} />
           </article>
         ))}
+        <Modal
+          title="Új recept felvitele"
+          buttonText="OK"
+          routingButtonText="Mégse"
+        />
       </section>
     </>
   );
