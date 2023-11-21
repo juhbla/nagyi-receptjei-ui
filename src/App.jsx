@@ -6,12 +6,11 @@ import Navbar from "./components/common/Navbar";
 import { Home } from "./pages/Home";
 import { Register } from "./pages/Register";
 import { Login } from "./pages/Login";
-import { Admin } from "./pages/Admin";
 
 import "./App.css";
 
 const App = () => {
-  const { HOME_PAGE, REGISTER_PAGE, LOGIN_PAGE, ADMIN_PAGE } = pages;
+  const { HOME_PAGE, REGISTER_PAGE, LOGIN_PAGE } = pages;
 
   return (
     <BrowserRouter>
@@ -21,7 +20,6 @@ const App = () => {
         routes={[
           { name: REGISTER_PAGE.name, path: REGISTER_PAGE.path },
           { name: LOGIN_PAGE.name, path: LOGIN_PAGE.path },
-          { name: ADMIN_PAGE.name, path: ADMIN_PAGE.path },
         ]}
       />
       <main className="container">
@@ -35,11 +33,6 @@ const App = () => {
             exact
             path={REGISTER_PAGE.path}
             element={<Register pageName={REGISTER_PAGE.name} />}
-          />
-          <Route
-            exact
-            path={ADMIN_PAGE.path}
-            element={<Admin pageName={ADMIN_PAGE.name} />}
           />
           <Route
             exact

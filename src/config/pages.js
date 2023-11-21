@@ -13,10 +13,6 @@ const pages = {
     name: "Bejelenkezés",
     path: "/login",
   },
-  ADMIN_PAGE: {
-    name: "Admin felület",
-    path: "/admin",
-  },
 };
 
 export default pages;
