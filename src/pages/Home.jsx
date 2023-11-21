@@ -12,6 +12,16 @@ export function Home({ pageName }) {
       name: `Hot Dog`,
       description: "Ízletes hot-dog nagyi konyhájából!",
     },
+    {
+      id: 3,
+      name: `Pizza`,
+      description: "Ízletes pizza nagyi konyhájából!",
+    },
+    {
+      id: 4,
+      name: `Somlói galuska`,
+      description: "Ízletes somlói galuska nagyi konyhájából!",
+    },
   ];
 
   return (
