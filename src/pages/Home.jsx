@@ -1,4 +1,5 @@
 import ReceiptCard from "../components/ReceiptCard";
+import AddReceiptCard from "../components/AddReceiptCard";
 
 export function Home({ pageName }) {
   const receipts = [
@@ -32,6 +33,9 @@ export function Home({ pageName }) {
         </div>
       </div>
       <section className="row">
+        <article key="0" className="col-sm-12 mt-5  col-md-12 col-lg-4">
+          <AddReceiptCard />
+        </article>
         {receipts.map((receipt) => (
           <article key={receipt.id} className="col-sm-12 col-md-12 col-lg-4">
             <ReceiptCard receipt={receipt} />
