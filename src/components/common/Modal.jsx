@@ -31,12 +31,12 @@ const Modal = ({
         <form>
           <TextInput
             type="text"
-            name="name"
+            name="title"
             maxLength={25}
             labelText="Recept neve"
           />
           <NumberAddOnInput
-            name="prep-time"
+            name="prep_time"
             value={0}
             minValue={0}
             labelText="Elkészítési idő"
