@@ -6,13 +6,11 @@ export function Home({ pageName }) {
       id: 1,
       name: `Hamburger`,
       description: "Ízletes hamburger nagyi konyhájából!",
-      price: `1.500`,
     },
     {
       id: 2,
       name: `Hot Dog`,
       description: "Ízletes hot-dog nagyi konyhájából!",
-      price: `2.500`,
     },
   ];
 

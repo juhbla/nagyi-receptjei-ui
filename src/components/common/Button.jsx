@@ -7,7 +7,7 @@ const Button = ({ text, url = "", width = "100%", disabled = false }) => {
       {text}
     </Link>
   ) : (
-    <div className="form-group">
+    <div className="form-group mt-3">
       <button
         className="btn btn-primary"
         style={{ width: width }}
