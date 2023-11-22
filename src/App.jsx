@@ -22,7 +22,7 @@ const App = () => {
           { name: LOGIN_PAGE.name, path: LOGIN_PAGE.path },
         ]}
       />
-      <main className="container">
+      <main>
         <Routes>
           <Route
             exact

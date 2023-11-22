@@ -1,6 +1,6 @@
 import ReceiptCard from "../components/ReceiptCard";
 import AddReceiptCard from "../components/AddReceiptCard";
-import Modal from "../components/common/Modal";
+import Header from "../components/common/Header";
 
 export function Home({ pageName }) {
   const receipts = [
@@ -28,26 +28,24 @@ export function Home({ pageName }) {
 
   return (
     <>
-      <div className="row">
-        <div className="col-12">
-          <h1>{pageName}</h1>
+      <Header />
+      <div className="container">
+        <div className="row">
+          <div className="col-12">
+            <h1>{pageName}</h1>
+          </div>
         </div>
-      </div>
-      <section className="row">
-        <article key="0" className="col-sm-12 mt-5  col-md-12 col-lg-4">
-          <AddReceiptCard />
-        </article>
-        {receipts.map((receipt) => (
-          <article key={receipt.id} className="col-sm-12 col-md-12 col-lg-4">
-            <ReceiptCard receipt={receipt} />
+        <section className="row">
+          <article key="0" className="col-sm-12 mt-5  col-md-12 col-lg-4">
+            <AddReceiptCard />
           </article>
-        ))}
-        <Modal
-          title="Új recept felvitele"
-          buttonText="OK"
-          routingButtonText="Mégse"
-        />
-      </section>
+          {receipts.map((receipt) => (
+            <article key={receipt.id} className="col-sm-12 col-md-12 col-lg-4">
+              <ReceiptCard receipt={receipt} />
+            </article>
+          ))}
+        </section>
+      </div>
     </>
   );
 }
