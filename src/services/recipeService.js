@@ -10,10 +10,16 @@ const getRecipes = async () => {
   return await restClient.get(endpointToCall);
 };
 
+const getRecipe = async (id) => {
+  const endpointToCall = `${API_ROOT}${RECIPES}/${id}`;
+
+  return await restClient.get(endpointToCall);
+};
+
 const createRecipe = async (recipe) => {
   const endpointToCall = `${API_ROOT}${RECIPES}`;
 
   return await restClient.post(endpointToCall, recipe);
 };
 
-export { getRecipes, createRecipe };
+export { getRecipes, getRecipe, createRecipe };

@@ -4,13 +4,14 @@ import pages, { APPLICATION_NAME } from "./config/pages";
 
 import Navbar from "./components/common/Navbar";
 import { Home } from "./pages/Home";
+import { RecipeProfile } from "./pages/RecipeProfile";
 import { Register } from "./pages/Register";
 import { Login } from "./pages/Login";
 
 import "./App.css";
 
 const App = () => {
-  const { HOME_PAGE, REGISTER_PAGE, LOGIN_PAGE } = pages;
+  const { HOME_PAGE, RECIPE_PAGE, REGISTER_PAGE, LOGIN_PAGE } = pages;
 
   return (
     <BrowserRouter>
@@ -28,6 +29,11 @@ const App = () => {
             exact
             path={HOME_PAGE.path}
             element={<Home pageName={HOME_PAGE.name} />}
+          />
+          <Route
+            exact
+            path={RECIPE_PAGE.path}
+            element={<RecipeProfile pageName={RECIPE_PAGE.name} />}
           />
           <Route
             exact
