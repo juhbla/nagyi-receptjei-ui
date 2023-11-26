@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
+import logoImage from "../../images/logo.png";
 const Navbar = ({ title, homeRoute, routes }) => {
   const [isOpen, setIsOpen] = useState(true);
 
@@ -13,9 +13,14 @@ const Navbar = ({ title, homeRoute, routes }) => {
 
   return (
     <header>
-      <nav className="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
+      <nav className="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-danger border-bottom box-shadow mb-2">
         <div className="container">
           <Link className="navbar-brand" to={homeRoute}>
+            <img
+              src={logoImage}
+              alt="Logo"
+              style={{ width: "70px", height: "70px", marginRight: "10px" }}
+            />
             {title}
           </Link>
           <button

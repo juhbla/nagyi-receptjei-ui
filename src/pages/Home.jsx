@@ -1,6 +1,8 @@
+import React, { useState } from "react";
 import ReceiptCard from "../components/ReceiptCard";
 import AddReceiptCard from "../components/AddReceiptCard";
 import Header from "../components/common/Header";
+import Modal from "../components/common/Modal";
 
 export function Home({ pageName }) {
   const receipts = [
@@ -24,8 +26,21 @@ export function Home({ pageName }) {
       name: `Somlói galuska`,
       description: "Ízletes somlói galuska nagyi konyhájából!",
     },
+    {
+      id: 5,
+      name: `Kenyérlángos`,
+      description: "Ízletes Kenyérlángos nagyi konyhájából!",
+    },
   ];
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
   return (
     <>
       <Header />
@@ -37,7 +52,7 @@ export function Home({ pageName }) {
         </div>
         <section className="row">
           <article key="0" className="col-sm-12 mt-5  col-md-12 col-lg-4">
-            <AddReceiptCard />
+            <AddReceiptCard openModal={openModal} />
           </article>
           {receipts.map((receipt) => (
             <article key={receipt.id} className="col-sm-12 col-md-12 col-lg-4">
@@ -46,6 +61,7 @@ export function Home({ pageName }) {
           ))}
         </section>
       </div>
+      {isModalOpen && <Modal closeModal={closeModal} />}
     </>
   );
 }

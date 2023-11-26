@@ -12,13 +12,29 @@
 }
 
 .title {
-  font-size: 35px;
+  font-size: 40px;
   font-weight: bold;
   text-shadow: 1px 1px grey;
 }
 
 .alt {
-  font-size: 25px;
+  font-size: 30px;
   font-weight: bold;
   color: #1d2124;
+}
+
+@media (max-width: 767px) {
+  .header {
+    background-size: contain;
+    height: auto;
+    min-height: 300px; /* Adjust the minimum height as needed */
+  }
+
+  .title {
+    font-size: 30px;
+  }
+
+  .alt {
+    font-size: 20px;
+  }
 }
