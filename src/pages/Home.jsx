@@ -1,37 +1,28 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import RecipeCard from "../components/RecipeCard";
 import AddRecipeCard from "../components/AddRecipeCard";
 import Header from "../components/common/Header";
 import Modal from "../components/common/Modal";
 
+import { getRecipes } from "../services/recipeService";
+
 export function Home({ pageName }) {
-  const receipts = [
-    {
-      id: 1,
-      name: `Hamburger`,
-      description: "Ízletes hamburger nagyi konyhájából!",
-    },
-    {
-      id: 2,
-      name: `Hot Dog`,
-      description: "Ízletes hot-dog nagyi konyhájából!",
-    },
-    {
-      id: 3,
-      name: `Pizza`,
-      description: "Ízletes pizza nagyi konyhájából!",
-    },
-    {
-      id: 4,
-      name: `Somlói galuska`,
-      description: "Ízletes somlói galuska nagyi konyhájából!",
-    },
-    {
-      id: 5,
-      name: `Kenyérlángos`,
-      description: "Ízletes Kenyérlángos nagyi konyhájából!",
-    },
-  ];
+  const [recipes, setRecipes] = useState([]);
+
+  useEffect(() => {
+    const populateRecipes = async () => {
+      try {
+        const { data } = await getRecipes();
+        const { value } = data;
+        setRecipes(value);
+      } catch (e) {
+        console.log("Hiba történt az API hívása során...");
+      }
+    };
+
+    populateRecipes();
+  }, []);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
@@ -41,6 +32,7 @@ export function Home({ pageName }) {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+
   return (
     <>
       <Header />

@@ -7,29 +7,30 @@ import noImage from "../images/no-image.png";
 const RecipeCard = ({ recipe }) => {
   const [uploadedPhotoFileName] = useState("");
 
-  const handlePhotoUpload = async (e) => {
+  const handlePhotoUpload = (e) => {
     console.log("Képfeltöltés...");
   };
 
-  const { name, description, photoFileName } = recipe;
+  const { title, prepTime, portion, photoFileName } = recipe;
 
   let imageSource;
 
   if (photoFileName) {
-    imageSource = noImage; // TODO: API hívás.
-  } else if (uploadedPhotoFileName) {
-    imageSource = noImage; // TODO: API hívás.
+    imageSource = photoFileName;
   } else {
     imageSource = noImage;
   }
 
-  const contents = [{ key: 1, value: description }]; // TODO: adattagok megadása.
+  const contents = [
+    { key: 1, value: "Elkészítési idő: " + prepTime + " perc" },
+    { key: 2, value: portion + " adag" },
+  ];
 
   return (
     <Card
-      title={name}
+      title={title}
       imageSource={imageSource}
-      imageAlt={name}
+      imageAlt={title}
       contents={contents}
       onChange={handlePhotoUpload}
     />
