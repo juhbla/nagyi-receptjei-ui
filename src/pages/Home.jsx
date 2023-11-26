@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import ReceiptCard from "../components/ReceiptCard";
-import AddReceiptCard from "../components/AddReceiptCard";
+import RecipeCard from "../components/RecipeCard";
+import AddRecipeCard from "../components/AddRecipeCard";
 import Header from "../components/common/Header";
 import Modal from "../components/common/Modal";
 
@@ -52,11 +52,11 @@ export function Home({ pageName }) {
         </div>
         <section className="row">
           <article key="0" className="col-sm-12 mt-5  col-md-12 col-lg-4">
-            <AddReceiptCard openModal={openModal} />
+            <AddRecipeCard openModal={openModal} />
           </article>
-          {receipts.map((receipt) => (
-            <article key={receipt.id} className="col-sm-12 col-md-12 col-lg-4">
-              <ReceiptCard receipt={receipt} />
+          {recipes.map((recipe) => (
+            <article key={recipe.id} className="col-sm-12 col-md-12 col-lg-4">
+              <RecipeCard recipe={recipe} />
             </article>
           ))}
         </section>

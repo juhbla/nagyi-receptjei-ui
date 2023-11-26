@@ -4,14 +4,14 @@ import Card from "./common/Card";
 
 import noImage from "../images/no-image.png";
 
-const ReceiptCard = ({ receipt }) => {
+const RecipeCard = ({ recipe }) => {
   const [uploadedPhotoFileName] = useState("");
 
   const handlePhotoUpload = async (e) => {
     console.log("Képfeltöltés...");
   };
 
-  const { name, description, photoFileName } = receipt;
+  const { name, description, photoFileName } = recipe;
 
   let imageSource;
 
@@ -36,4 +36,4 @@ const ReceiptCard = ({ receipt }) => {
   );
 };
 
-export default ReceiptCard;
+export default RecipeCard;
