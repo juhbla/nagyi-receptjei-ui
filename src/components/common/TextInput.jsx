@@ -4,6 +4,7 @@ const TextInput = ({
   value,
   maxLength,
   labelText,
+  placeholder,
   errorMessage = "",
   onChange,
 }) => {
@@ -20,6 +21,7 @@ const TextInput = ({
           minLength={0}
           maxLength={maxLength}
           onChange={onChange}
+          placeholder={placeholder}
         />
       </div>
       {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}

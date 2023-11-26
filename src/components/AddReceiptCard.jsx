@@ -1,6 +1,6 @@
 import plusSign from "../images/plus.png";
 
-const AddReceiptCard = () => {
+const AddReceiptCard = ({ openModal }) => {
   return (
     <div className="card mt-3 mb-3">
       <img
@@ -14,6 +14,9 @@ const AddReceiptCard = () => {
         }}
         alt=""
       />
+      <button className="btn btn-danger" onClick={openModal}>
+        Új recept hozzáadása
+      </button>
     </div>
   );
 };
