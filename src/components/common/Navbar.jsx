@@ -13,7 +13,7 @@ const Navbar = ({ title, homeRoute, routes }) => {
 
   return (
     <header>
-      <nav className="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-danger border-bottom box-shadow mb-2">
+      <nav className="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-danger border-bottom box-shadow">
         <div className="container">
           <Link className="navbar-brand" to={homeRoute}>
             <img
