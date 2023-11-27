@@ -1,5 +1,4 @@
 import plusSign from "../images/plus.png";
-
 const AddRecipeCard = ({ openModal }) => {
   return (
     <div className="card mt-3 mb-3">

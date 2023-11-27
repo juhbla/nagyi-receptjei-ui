@@ -1,0 +1,31 @@
+.card {
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.card img {
+  margin-bottom: 20px;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+}
+
+/* Add to your existing CSS file (e.g., HomeStyle.css) */
+.centered {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}

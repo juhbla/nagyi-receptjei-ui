@@ -1,0 +1,99 @@
+.container {
+  margin: 20px;
+}
+
+.cardBox {
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.cardBox h1 {
+  font-size: 24px;
+  text-decoration: underline;
+  margin-bottom: 10px;
+}
+
+.card-img-top {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 20px 0;
+  object-fit: contain;
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+.units {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.units h4 {
+  font-size: 18px;
+  margin: 0;
+  color: grey;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+ul li {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.comment {
+  margin-top: 20px;
+}
+
+.comment h4 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.commentList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.comment-item {
+  border: 1px solid #eee;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.comment-item .username {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.comment-item .content {
+  font-size: 16px;
+}
+
+@media screen and (max-width: 768px) {
+  .card-img-top {
+    margin: 10px 0;
+  }
+
+  .units h4 {
+    font-size: 16px;
+  }
+
+  ul li {
+    font-size: 14px;
+  }
+
+  .comment-item {
+    font-size: 14px;
+  }
+}

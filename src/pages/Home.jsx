@@ -3,8 +3,8 @@ import RecipeCard from "../components/RecipeCard";
 import AddRecipeCard from "../components/AddRecipeCard";
 import Header from "../components/common/Header";
 import Modal from "../components/common/Modal";
-
 import { getRecipes } from "../services/recipeService";
+import HomeStyle from "../components/common/HomeStyle.css";
 
 export function Home({ pageName }) {
   const [recipes, setRecipes] = useState([]);

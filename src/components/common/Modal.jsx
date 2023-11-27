@@ -3,7 +3,8 @@ import TextInput from "./TextInput";
 import NumberInput from "./NumberInput";
 import NumberAddOnInput from "./NumberAddOnInput";
 import TextArea from "./TextArea";
-
+import { useState } from "react";
+import IngredientInput from "./IngredientInput";
 const Modal = ({
   title,
   buttonText,
@@ -11,7 +12,27 @@ const Modal = ({
   redirectUrl = "",
   isSuccessModal = true,
   onClick,
+  closeModal,
 }) => {
+  const [ingredients, setIngredients] = useState([
+    { name: "", quantity: 0, unit: "" },
+  ]);
+
+  const handleIngredientChange = (index, property, value) => {
+    const updatedIngredients = [...ingredients];
+    updatedIngredients[index][property] = value;
+    setIngredients(updatedIngredients);
+  };
+
+  const handleAddIngredient = () => {
+    setIngredients([...ingredients, { name: "", quantity: 0, unit: "" }]);
+  };
+
+  const handleRemoveIngredient = (index) => {
+    const updatedIngredients = [...ingredients];
+    updatedIngredients.splice(index, 1);
+    setIngredients(updatedIngredients);
+  };
   return (
     <div
       className="modal-dialog modal-content"
@@ -43,6 +64,23 @@ const Modal = ({
             addOnText="perc"
           />
           <NumberInput name="portion" labelText="Adag" minValue={1} />
+
+          {ingredients.map((ingredient, index) => (
+            <IngredientInput
+              key={index}
+              index={index}
+              ingredient={ingredient}
+              onIngredientChange={handleIngredientChange}
+              onIngredientRemove={handleRemoveIngredient}
+            />
+          ))}
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={handleAddIngredient}
+          >
+            Új hozzávaló
+          </button>
           <TextArea
             name="content"
             maxLength={500}

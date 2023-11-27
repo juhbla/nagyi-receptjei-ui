@@ -7,6 +7,8 @@ import endpoints from "../config/api.endpoints";
 
 import noImage from "../images/no-image.png";
 
+import "../../src/components/common/RecipeProfileStyle.css";
+
 export function RecipeProfile({ pageName }) {
   const { id: idRouteParameter } = useParams();
 
@@ -58,38 +60,48 @@ export function RecipeProfile({ pageName }) {
     <div className="container">
       <section className="row">
         <article className="col-sm-12 col-md-12 col-lg-12">
-          <img
-            src={imageSource}
-            className="card-img-top"
-            style={{
-              width: "500px",
-              height: "500px",
-              display: "block",
-              margin: "0 auto",
-              objectFit: "contain",
-            }}
-            alt={title}
-          />
-          <h1>{title}</h1>
-          <h3>{content}</h3>
-          <h3>{prepTime} perc</h3>
-          <h3>{portion} adag</h3>
-          <h4>Hozzávalók</h4>
-          <ul>
-            {ingredients.map((ingredient) => (
-              <li
-                key={ingredient.id}
-              >{`${ingredient.amount} ${ingredient.unit} ${ingredient.name}`}</li>
-            ))}
-          </ul>
-          <h4>Hozzászólások</h4>
-          <ul>
-            {comments.map((comment) => (
-              <li
-                key={comment.id}
-              >{`${comment.user.username} ${comment.content}`}</li>
-            ))}
-          </ul>
+          <div className="cardBox">
+            <h1>{title}</h1>
+            <img
+              src={imageSource}
+              className="card-img-top"
+              style={{
+                width: "500px",
+                height: "300px",
+                display: "block",
+                margin: "20px 0",
+                objectFit: "contain",
+              }}
+              alt={title}
+            />
+            <div className="units">
+              <h4> Elkészítési idő: {prepTime} perc</h4>
+              <h4>{portion} adag</h4>
+            </div>
+            <h4>Hozzávalók</h4>
+            <ul>
+              {ingredients.map((ingredient) => (
+                <li key={ingredient.id}>
+                  {`${ingredient.amount} ${ingredient.unit} ${ingredient.name}`}
+                </li>
+              ))}
+            </ul>
+
+            <h4>Elkészítés:</h4>
+            <p>{content}</p>
+          </div>
+          <div className="comment">
+            <h4>Hozzászólások</h4>
+            <ul className="commentList">
+              {comments.map((comment) => (
+                <li key={comment.id} className="comment-item">
+                  <span className="username">{comment.user.username}</span>{" "}
+                  <br />
+                  <span className="content">{comment.content}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </article>
       </section>
     </div>
