@@ -21,7 +21,13 @@ export function RecipeProfile({ pageName }) {
     photoFileName: "",
     ingredients: [{ id: 0, name: "", amount: 0, unit: "" }],
     comments: [{ id: 0, user: { id: 0, username: "" }, content: "" }],
+    createdDateTime: "",
   });
+
+  const format = (createdDateTime) => {
+    const date = new Date(createdDateTime);
+    return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+  };
 
   useEffect(() => {
     const populateRecipe = async () => {
@@ -98,6 +104,9 @@ export function RecipeProfile({ pageName }) {
                   <span className="username">{comment.user.username}</span>{" "}
                   <br />
                   <span className="content">{comment.content}</span>
+                  <span className="createdDateTime">
+                    {format(comment.createdDateTime)}
+                  </span>
                 </li>
               ))}
             </ul>
