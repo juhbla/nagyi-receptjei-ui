@@ -1,10 +1,11 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+
 import TextInput from "./TextInput";
 import NumberInput from "./NumberInput";
 import NumberAddOnInput from "./NumberAddOnInput";
 import TextArea from "./TextArea";
-import { useState } from "react";
-import IngredientInput from "./IngredientInput";
+
 const Modal = ({
   title,
   buttonText,
@@ -14,25 +15,38 @@ const Modal = ({
   onClick,
   closeModal,
 }) => {
-  const [ingredients, setIngredients] = useState([
-    { name: "", quantity: 0, unit: "" },
+  const [newRecipe, setNewRecipe] = useState({
+    title: "",
+    prepTime: 0,
+    portion: 0,
+    ingredients: [],
+    content: "",
+  });
+
+  const [newIngredient, setNewIngredient] = useState([
+    {
+      name: "",
+      amount: 0,
+      unit: "",
+    },
   ]);
 
-  const handleIngredientChange = (index, property, value) => {
-    const updatedIngredients = [...ingredients];
-    updatedIngredients[index][property] = value;
-    setIngredients(updatedIngredients);
+  const handleTextChange = ({ currentTarget: input }) => {
+    const updatedNewRecipe = { ...newRecipe };
+    updatedNewRecipe[input.name] = input.value;
+    setNewRecipe(updatedNewRecipe);
+  };
+
+  const handleNumberChange = ({ currentTarget: input }) => {
+    const updatedNewRecipe = { ...newRecipe };
+    updatedNewRecipe[input.name] = parseInt(input.value);
+    setNewRecipe(updatedNewRecipe);
   };
 
   const handleAddIngredient = () => {
-    setIngredients([...ingredients, { name: "", quantity: 0, unit: "" }]);
+    setNewIngredient([...newIngredient, { name: "", amount: 0, unit: "" }]);
   };
 
-  const handleRemoveIngredient = (index) => {
-    const updatedIngredients = [...ingredients];
-    updatedIngredients.splice(index, 1);
-    setIngredients(updatedIngredients);
-  };
   return (
     <div
       className="modal-dialog modal-content"
@@ -49,31 +63,27 @@ const Modal = ({
         <h5 className="modal-title">{title}</h5>
       </div>
       <div className="modal-body">
-        <form>
+        <form noValidate>
           <TextInput
             type="text"
             name="title"
             maxLength={25}
             labelText="Recept neve"
+            onChange={handleTextChange}
           />
           <NumberAddOnInput
-            name="prep_time"
-            value={0}
+            name="prepTime"
             minValue={0}
             labelText="Elkészítési idő"
             addOnText="perc"
+            onChange={handleNumberChange}
           />
-          <NumberInput name="portion" labelText="Adag" minValue={1} />
-
-          {ingredients.map((ingredient, index) => (
-            <IngredientInput
-              key={index}
-              index={index}
-              ingredient={ingredient}
-              onIngredientChange={handleIngredientChange}
-              onIngredientRemove={handleRemoveIngredient}
-            />
-          ))}
+          <NumberInput
+            name="portion"
+            labelText="Adag"
+            minValue={1}
+            onChange={handleNumberChange}
+          />
           <button
             type="button"
             className="btn btn-primary"
@@ -83,8 +93,9 @@ const Modal = ({
           </button>
           <TextArea
             name="content"
-            maxLength={500}
+            maxLength={2000}
             labelText="Elkészítési mód"
+            onChange={handleTextChange}
           />
         </form>
       </div>
