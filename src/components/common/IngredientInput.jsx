@@ -1,6 +1,3 @@
-// IngredientInput.js
-
-import React from "react";
 import TextInput from "./TextInput";
 import NumberInput from "./NumberInput";
 
@@ -21,12 +18,10 @@ const IngredientInput = ({
           labelText="Hozzávaló neve"
         />
         <NumberInput
-          name={`ingredientQuantity${index}`}
-          value={ingredient.quantity}
+          name={`ingredientAmount${index}`}
+          value={ingredient.amount}
           minValue={0}
-          onChange={(e) =>
-            onIngredientChange(index, "quantity", e.target.value)
-          }
+          onChange={(e) => onIngredientChange(index, "amount", e.target.value)}
           labelText="Mennyiség"
         />
         <TextInput

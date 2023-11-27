@@ -5,7 +5,10 @@ import TextInput from "./TextInput";
 import NumberInput from "./NumberInput";
 import NumberAddOnInput from "./NumberAddOnInput";
 import TextArea from "./TextArea";
+import Button from "./Button";
+import IngredientInput from "./IngredientInput";
 
+// TODO: új név => AddRecipeModalForm
 const Modal = ({
   title,
   buttonText,
@@ -31,20 +34,31 @@ const Modal = ({
     },
   ]);
 
-  const handleTextChange = ({ currentTarget: input }) => {
+  const handleRecipeTextChange = ({ currentTarget: input }) => {
     const updatedNewRecipe = { ...newRecipe };
     updatedNewRecipe[input.name] = input.value;
     setNewRecipe(updatedNewRecipe);
   };
 
-  const handleNumberChange = ({ currentTarget: input }) => {
+  const handleRecipeNumberChange = ({ currentTarget: input }) => {
     const updatedNewRecipe = { ...newRecipe };
     updatedNewRecipe[input.name] = parseInt(input.value);
     setNewRecipe(updatedNewRecipe);
   };
 
-  const handleAddIngredient = () => {
+  const handleAddNewIngredient = (e) => {
+    e.preventDefault();
     setNewIngredient([...newIngredient, { name: "", amount: 0, unit: "" }]);
+  };
+  const handleActualIngredientChange = (index, property, value) => {
+    const updatedIngredients = [...newIngredient];
+    updatedIngredients[index][property] = value;
+    setNewIngredient(updatedIngredients);
+  };
+  const handleActualIngredientRemove = (index) => {
+    const updatedIngredients = [...newIngredient];
+    updatedIngredients.splice(index, 1);
+    setNewIngredient(updatedIngredients);
   };
 
   return (
@@ -69,33 +83,38 @@ const Modal = ({
             name="title"
             maxLength={25}
             labelText="Recept neve"
-            onChange={handleTextChange}
+            onChange={handleRecipeTextChange}
           />
           <NumberAddOnInput
             name="prepTime"
             minValue={0}
             labelText="Elkészítési idő"
             addOnText="perc"
-            onChange={handleNumberChange}
+            onChange={handleRecipeNumberChange}
           />
           <NumberInput
             name="portion"
             labelText="Adag"
             minValue={1}
-            onChange={handleNumberChange}
+            onChange={handleRecipeNumberChange}
           />
-          <button
-            type="button"
-            className="btn btn-primary"
-            onClick={handleAddIngredient}
-          >
+          {newIngredient.map((ingredient, index) => (
+            <IngredientInput
+              key={index}
+              index={index}
+              ingredient={newIngredient}
+              onIngredientChange={handleActualIngredientChange}
+              onIngredientRemove={handleActualIngredientRemove}
+            />
+          ))}
+          <Button text="Új hozzávaló" onClick={handleAddNewIngredient}>
             Új hozzávaló
-          </button>
+          </Button>
           <TextArea
             name="content"
             maxLength={2000}
             labelText="Elkészítési mód"
-            onChange={handleTextChange}
+            onChange={handleRecipeTextChange}
           />
         </form>
       </div>
