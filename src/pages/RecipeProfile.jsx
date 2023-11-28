@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+import TextArea from "../components/common/TextArea";
+import Button from "../components/common/Button";
+
 import { getRecipe } from "../services/recipeService";
+import { createComment } from "../services/commentService";
 import { formatDate } from "../util/dateUtil";
 
 import endpoints from "../config/api.endpoints";
@@ -25,6 +29,12 @@ export function RecipeProfile({ pageName }) {
     createdDateTime: "",
   });
 
+  const [comment, setComment] = useState({
+    recipeId: parseInt(idRouteParameter),
+    content: "",
+    userId: 1, // TODO: később a belépett user id-ja legyen ide tárolva.
+  });
+
   useEffect(() => {
     const populateRecipe = async () => {
       try {
@@ -38,6 +48,23 @@ export function RecipeProfile({ pageName }) {
 
     populateRecipe();
   }, [idRouteParameter]);
+
+  const handleTextChange = ({ currentTarget: input }) => {
+    const updatedComment = { ...comment };
+    updatedComment[input.name] = input.value;
+    setComment(updatedComment);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const { data } = await createComment(comment);
+      setComment({ ...data });
+    } catch (exception) {
+      console.log("Hiba történt:" + exception);
+    }
+  };
 
   const {
     title,
@@ -88,7 +115,6 @@ export function RecipeProfile({ pageName }) {
                 </li>
               ))}
             </ul>
-
             <h4>Elkészítés:</h4>
             <p>{content}</p>
           </div>
@@ -107,6 +133,16 @@ export function RecipeProfile({ pageName }) {
               ))}
             </ul>
           </div>
+          <form onSubmit={handleSubmit} noValidate>
+            <div className="new-comment">
+              <TextArea
+                name="content"
+                maxLength={250}
+                onChange={handleTextChange}
+              />
+              <Button text="Küldés" className="btn btn-primary" />
+            </div>
+          </form>
         </article>
       </section>
     </div>
