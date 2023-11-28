@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { getRecipe } from "../services/recipeService";
+import { formatDate } from "../util/dateUtil";
 
 import endpoints from "../config/api.endpoints";
 
@@ -23,11 +24,6 @@ export function RecipeProfile({ pageName }) {
     comments: [{ id: 0, user: { id: 0, username: "" }, content: "" }],
     createdDateTime: "",
   });
-
-  const format = (createdDateTime) => {
-    const date = new Date(createdDateTime);
-    return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
-  };
 
   useEffect(() => {
     const populateRecipe = async () => {
@@ -101,11 +97,11 @@ export function RecipeProfile({ pageName }) {
             <ul className="commentList">
               {comments.map((comment) => (
                 <li key={comment.id} className="comment-item">
-                  <span className="username">{comment.user.username}</span>{" "}
+                  <span className="username">{comment.user.username}</span>
                   <br />
                   <span className="content">{comment.content}</span>
                   <span className="createdDateTime">
-                    {format(comment.createdDateTime)}
+                    {formatDate(comment.createdDateTime)}
                   </span>
                 </li>
               ))}

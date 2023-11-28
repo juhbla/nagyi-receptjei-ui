@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import RecipeCard from "../components/RecipeCard";
 import AddRecipeCard from "../components/AddRecipeCard";
 import Header from "../components/common/Header";
-import Modal from "../components/common/Modal";
+import AddRecipeModalForm from "../components/AddRecipeModalForm";
+
 import { getRecipes } from "../services/recipeService";
-import HomeStyle from "../components/common/HomeStyle.css";
 
 export function Home({ pageName }) {
   const [recipes, setRecipes] = useState([]);
@@ -53,7 +53,9 @@ export function Home({ pageName }) {
           ))}
         </section>
       </div>
-      {isModalOpen && <Modal closeModal={closeModal} />}
+      {isModalOpen && (
+        <AddRecipeModalForm buttonText="OK" closeModal={closeModal} />
+      )}
     </>
   );
 }

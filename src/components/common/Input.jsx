@@ -1,11 +1,24 @@
-export function Input({ type, id, name, placeholder }) {
+export function Input({
+  type,
+  name,
+  value,
+  id,
+  placeholder,
+  minLength,
+  maxLength,
+  onChange,
+}) {
   return (
     <input
       type={type}
-      className="form-control mt-3"
-      id={id}
       name={name}
+      value={value}
+      id={id}
+      className="form-control mt-3"
       placeholder={placeholder}
+      minLength={minLength}
+      maxLength={maxLength}
+      onChange={onChange}
     />
   );
 }
