@@ -6,7 +6,9 @@ import NumberAddOnInput from "./common/NumberAddOnInput";
 import TextArea from "./common/TextArea";
 import Button from "./common/Button";
 
-const AddRecipeModalForm = ({ title, onClick }) => {
+import { createRecipe } from "../services/recipeService";
+
+const AddRecipeModalForm = ({ title }) => {
   const [recipe, setRecipe] = useState({
     title: "",
     prepTime: 0,
@@ -54,23 +56,34 @@ const AddRecipeModalForm = ({ title, onClick }) => {
     setIngredient(updatedIngredient);
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const { data } = await createRecipe(recipe);
+      setRecipe({ ...data });
+    } catch (exception) {
+      console.log("Hiba történt:" + exception);
+    }
+  };
+
   return (
-    <div
-      className="modal-dialog modal-content"
-      style={{
-        position: "absolute",
-        margin: "0",
-        float: "left",
-        left: "50%",
-        top: "50%",
-        transform: " translate(-50%, -50%)",
-      }}
-    >
-      <div className="modal-header">
-        <h5 className="modal-title">{title}</h5>
-      </div>
-      <div className="modal-body">
-        <form noValidate>
+    <form onSubmit={handleSubmit} noValidate>
+      <div
+        className="modal-dialog modal-content"
+        style={{
+          position: "absolute",
+          margin: "0",
+          float: "left",
+          left: "50%",
+          top: "50%",
+          transform: " translate(-50%, -50%)",
+        }}
+      >
+        <div className="modal-header">
+          <h5 className="modal-title">{title}</h5>
+        </div>
+        <div className="modal-body">
           <TextInput
             name="title"
             maxLength={25}
@@ -128,17 +141,13 @@ const AddRecipeModalForm = ({ title, onClick }) => {
             labelText="Elkészítési mód"
             onChange={handleRecipeTextChange}
           />
-        </form>
+        </div>
+        <div className="modal-footer">
+          <Button className="btn btn-primary" text="Recept hozzáadása" />
+          <Button className="btn btn-secondary" text="Mégse" />
+        </div>
       </div>
-      <div className="modal-footer">
-        <Button
-          className="btn btn-primary"
-          text="Recept hozzáadása"
-          onClick={onClick}
-        />
-        <Button className="btn btn-secondary" text="Mégse" onClick={onClick} />
-      </div>
-    </div>
+    </form>
   );
 };
 
