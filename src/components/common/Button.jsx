@@ -10,7 +10,7 @@ const Button = ({
   onClick,
 }) => {
   return url ? (
-    <Link className={className} to={url}>
+    <Link style={{ width: width }} className={className} to={url}>
       {text}
     </Link>
   ) : (

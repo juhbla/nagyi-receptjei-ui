@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import Card from "./common/Card";
+import Button from "./common/Button";
 
 import { uploadPhoto } from "../services/photoService";
 
@@ -43,13 +44,20 @@ const RecipeCard = ({ recipe }) => {
   ];
 
   return (
-    <Card
-      title={title}
-      imageSource={imageSource}
-      imageAlt={title}
-      contents={contents}
-      onChange={handlePhotoUpload}
-    />
+    <>
+      <Card
+        title={title}
+        imageSource={imageSource}
+        imageAlt={title}
+        contents={contents}
+        onChange={handlePhotoUpload}
+      />
+      <Button
+        text="Irány a recept!"
+        className="btn btn-primary"
+        url={`recipe/${id}`}
+      />
+    </>
   );
 };
 
