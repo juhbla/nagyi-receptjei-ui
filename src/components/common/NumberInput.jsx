@@ -12,7 +12,7 @@ const NumberInput = ({
         <label htmlFor={name}>{labelText}</label>
         <input
           type="number"
-          className="form-control"
+          className="form-control mt-3"
           id={name}
           name={name}
           value={value}

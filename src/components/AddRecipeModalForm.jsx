@@ -6,12 +6,7 @@ import NumberAddOnInput from "./common/NumberAddOnInput";
 import TextArea from "./common/TextArea";
 import Button from "./common/Button";
 
-const AddRecipeModalForm = ({
-  title,
-  buttonText,
-  isSuccessModal = true,
-  onClick,
-}) => {
+const AddRecipeModalForm = ({ title, onClick }) => {
   const [recipe, setRecipe] = useState({
     title: "",
     prepTime: 0,
@@ -122,7 +117,11 @@ const AddRecipeModalForm = ({
               />
             </div>
           </div>
-          <Button text="Új hozzávaló" onClick={handleAddIngredient} />
+          <Button
+            text="Új hozzávaló"
+            className="btn btn-primary"
+            onClick={handleAddIngredient}
+          />
           <TextArea
             name="content"
             maxLength={2000}
@@ -132,17 +131,12 @@ const AddRecipeModalForm = ({
         </form>
       </div>
       <div className="modal-footer">
-        {isSuccessModal ? (
-          <>
-            <button type="button" className="btn btn-primary" onClick={onClick}>
-              {buttonText}
-            </button>
-          </>
-        ) : (
-          <button type="button" className="btn btn-danger" onClick={onClick}>
-            {buttonText}
-          </button>
-        )}
+        <Button
+          className="btn btn-primary"
+          text="Recept hozzáadása"
+          onClick={onClick}
+        />
+        <Button className="btn btn-secondary" text="Mégse" onClick={onClick} />
       </div>
     </div>
   );
