@@ -18,6 +18,7 @@ const TextArea = ({
           minLength={0}
           maxLength={maxLength}
           onChange={onChange}
+          style={{ resize: "none" }}
         />
       </div>
       {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
