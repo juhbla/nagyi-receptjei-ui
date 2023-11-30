@@ -1,19 +1,18 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import TextArea from "../components/common/TextArea";
 import Button from "../components/common/Button";
+import CommentSection from "../components/common/CommentSection";
 
 import { getRecipe } from "../services/recipeService";
 import { createComment } from "../services/commentService";
-import { formatDate } from "../util/dateUtil";
 
 import endpoints from "../config/api.endpoints";
 
 import noImage from "../images/no-image.png";
 
 import "../../src/components/common/RecipeProfileStyle.css";
-import { CommentSection } from "../components/common/CommentSection";
 
 export function RecipeProfile({ pageName }) {
   const { id: idRouteParameter } = useParams();
@@ -40,6 +39,10 @@ export function RecipeProfile({ pageName }) {
     const populateRecipe = async () => {
       try {
         const { data } = await getRecipe(idRouteParameter);
+        const { statusCode } = data;
+        if (statusCode === 400) {
+          window.location.href = "/";
+        }
         const { value } = data;
         setRecipe(value);
       } catch (e) {

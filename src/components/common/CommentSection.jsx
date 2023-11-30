@@ -1,6 +1,6 @@
 import { formatDate } from "../../util/dateUtil";
 
-export const CommentSection = ({ comments }) => {
+const CommentSection = ({ comments }) => {
   return (
     <div className="comment">
       <h4>Hozzászólások</h4>
@@ -8,8 +8,7 @@ export const CommentSection = ({ comments }) => {
         {comments.map((comment) => (
           <li key={comment.id} className="comment-item">
             <span className="username">{comment.user.username}</span>
-            <br />
-            <span className="content">{comment.content}</span>
+            <p className="content">{comment.content}</p>
             <span className="createdDateTime">
               {formatDate(comment.createdDateTime)}
             </span>
@@ -19,3 +18,5 @@ export const CommentSection = ({ comments }) => {
     </div>
   );
 };
+
+export default CommentSection;
