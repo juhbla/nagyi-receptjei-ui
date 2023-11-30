@@ -13,6 +13,7 @@ import endpoints from "../config/api.endpoints";
 import noImage from "../images/no-image.png";
 
 import "../../src/components/common/RecipeProfileStyle.css";
+import { CommentSection } from "../components/common/CommentSection";
 
 export function RecipeProfile({ pageName }) {
   const { id: idRouteParameter } = useParams();
@@ -60,7 +61,13 @@ export function RecipeProfile({ pageName }) {
 
     try {
       const { data } = await createComment(comment);
-      setComment({ ...data });
+      const { value } = data;
+      const updatedComment = { ...comment };
+      updatedComment.content = "";
+      setComment(updatedComment);
+      const updatedRecipe = { ...recipe };
+      updatedRecipe.comments.push(value);
+      setRecipe(updatedRecipe);
     } catch (exception) {
       console.log("Hiba történt:" + exception);
     }
@@ -118,27 +125,14 @@ export function RecipeProfile({ pageName }) {
             <h4>Elkészítés:</h4>
             <p>{content}</p>
           </div>
-          <div className="comment">
-            <h4>Hozzászólások</h4>
-            <ul className="commentList">
-              {comments.map((comment) => (
-                <li key={comment.id} className="comment-item">
-                  <span className="username">{comment.user.username}</span>
-                  <br />
-                  <span className="content">{comment.content}</span>
-                  <span className="createdDateTime">
-                    {formatDate(comment.createdDateTime)}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <CommentSection comments={recipe.comments} />
           <form onSubmit={handleSubmit} noValidate>
             <div className="new-comment">
               <TextArea
                 name="content"
                 maxLength={250}
                 onChange={handleTextChange}
+                value={comment.content}
               />
               <Button text="Küldés" className="btn btn-primary" />
             </div>
