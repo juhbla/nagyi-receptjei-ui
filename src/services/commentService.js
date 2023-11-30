@@ -9,4 +9,10 @@ const createComment = async (comment) => {
   return await restClient.post(endpointToCall, comment);
 };
 
-export { createComment };
+const deleteComment = async (id) => {
+  const endpointToCall = `${API_ROOT}${COMMENTS}/${id}`;
+
+  return await restClient.delete(endpointToCall, id);
+};
+
+export { createComment, deleteComment };

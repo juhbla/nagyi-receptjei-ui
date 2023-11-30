@@ -3,10 +3,10 @@ import { useParams } from "react-router-dom";
 
 import TextArea from "../components/common/TextArea";
 import Button from "../components/common/Button";
-import CommentSection from "../components/common/CommentSection";
 
 import { getRecipe } from "../services/recipeService";
-import { createComment } from "../services/commentService";
+import { createComment, deleteComment } from "../services/commentService";
+import { formatDate } from "../util/dateUtil";
 
 import endpoints from "../config/api.endpoints";
 
@@ -35,6 +35,8 @@ export function RecipeProfile({ pageName }) {
     userId: 1, // TODO: később a belépett user id-ja legyen ide tárolva.
   });
 
+  const [actualCommentId, setActualCommentId] = useState(0);
+
   useEffect(() => {
     const populateRecipe = async () => {
       try {
@@ -59,7 +61,7 @@ export function RecipeProfile({ pageName }) {
     setComment(updatedComment);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmitNewComment = async (e) => {
     e.preventDefault();
 
     try {
@@ -76,15 +78,24 @@ export function RecipeProfile({ pageName }) {
     }
   };
 
-  const {
-    title,
-    content,
-    prepTime,
-    portion,
-    photoFileName,
-    ingredients,
-    comments,
-  } = recipe;
+  const handleSubmitDeleteComment = async (e) => {
+    e.preventDefault();
+
+    await deleteComment(actualCommentId);
+    const updatedRecipe = { ...recipe };
+    const index = updatedRecipe.comments.findIndex(
+      (comment) => comment.id === actualCommentId,
+    );
+    updatedRecipe.comments.splice(index, 1);
+    setRecipe(updatedRecipe);
+  };
+
+  const handleActualCommentIdSetting = ({ currentTarget: input }) => {
+    setActualCommentId(parseInt(input.id));
+  };
+
+  const { title, content, prepTime, portion, photoFileName, ingredients } =
+    recipe;
 
   const { API_ROOT, PHOTOS } = endpoints;
   let imageSource;
@@ -128,8 +139,29 @@ export function RecipeProfile({ pageName }) {
             <h4>Elkészítés:</h4>
             <p>{content}</p>
           </div>
-          <CommentSection comments={recipe.comments} />
-          <form onSubmit={handleSubmit} noValidate>
+          <form onSubmit={handleSubmitDeleteComment} noValidate>
+            <div className="comment">
+              <h4>Hozzászólások</h4>
+              <ul className="commentList">
+                {recipe.comments.map((comment) => (
+                  <div key={comment.id} className="comment-item">
+                    <span className="username">{comment.user.username}</span>
+                    <p className="content">{comment.content}</p>
+                    <span className="createdDateTime">
+                      {formatDate(comment.createdDateTime)}
+                    </span>
+                    <Button
+                      text="Komment törlése"
+                      className="btn btn-danger"
+                      id={comment.id.toString()}
+                      onClick={handleActualCommentIdSetting}
+                    />
+                  </div>
+                ))}
+              </ul>
+            </div>
+          </form>
+          <form onSubmit={handleSubmitNewComment} noValidate>
             <div className="new-comment">
               <TextArea
                 name="content"

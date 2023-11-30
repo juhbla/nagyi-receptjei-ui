@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 const Button = ({
   text,
   className,
+  id = "",
   url = "",
   width = "100%",
   disabled = false,
@@ -17,6 +18,7 @@ const Button = ({
     <div className="form-group mt-3">
       <button
         className={className}
+        id={id}
         style={{ width: width }}
         disabled={disabled}
         onClick={onClick}
