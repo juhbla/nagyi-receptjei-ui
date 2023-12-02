@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 
 import TextArea from "../components/common/TextArea";
 import Button from "../components/common/Button";
+import NumberAddOnInput from "../components/common/NumberAddOnInput";
 
 import { getRecipe } from "../services/recipeService";
 import { createComment, deleteComment } from "../services/commentService";
@@ -94,6 +95,24 @@ export function RecipeProfile({ pageName }) {
     setActualCommentId(parseInt(input.id));
   };
 
+  const handlePortionChanged = (e) => {
+    let actualValue = parseInt(e.target.value);
+    const previousValue = actualValue - 1;
+
+    const direction = actualValue > previousValue ? "up" : "down";
+
+    const updatedRecipe = {
+      ...recipe,
+    };
+    if (direction === "up") {
+      updatedRecipe["portion"] = actualValue++;
+    } else {
+      updatedRecipe["portion"] = actualValue--;
+    }
+
+    setRecipe(updatedRecipe);
+  };
+
   const { title, content, prepTime, portion, photoFileName, ingredients } =
     recipe;
 
@@ -125,8 +144,16 @@ export function RecipeProfile({ pageName }) {
               alt={title}
             />
             <div className="units">
-              <h4> Elkészítési idő: {prepTime} perc</h4>
-              <h4>{portion} adag</h4>
+              <h3> Elkészítési idő: {prepTime} perc</h3>
+              <h4>
+                <NumberAddOnInput
+                  name="portion"
+                  value={portion}
+                  minValue={1}
+                  addOnText="adag"
+                  onChange={handlePortionChanged}
+                />
+              </h4>
             </div>
             <h4>Hozzávalók</h4>
             <ul>
