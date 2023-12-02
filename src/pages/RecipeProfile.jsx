@@ -8,7 +8,7 @@ import NumberAddOnInput from "../components/common/NumberAddOnInput";
 
 import { getRecipe } from "../services/recipeService";
 import { createComment, deleteComment } from "../services/commentService";
-import { formatDate } from "../util/dateUtil";
+import { formatDate, roundToOneDecimal } from "../util/dateUtil";
 
 import endpoints from "../config/api.endpoints";
 
@@ -105,12 +105,25 @@ export function RecipeProfile({ pageName }) {
     const updatedRecipe = {
       ...recipe,
     };
+    const ingredients = [...updatedRecipe.ingredients];
+
     if (direction === "up") {
       updatedRecipe["portion"] = actualValue++;
+      for (let i = 0; i < ingredients.length; i++) {
+        const amount = ingredients[i].amount;
+        const amountOfOnePortion = amount / previousValue;
+        const result = amountOfOnePortion * actualValue;
+        ingredients[i] = roundToOneDecimal(result);
+      }
     } else {
       updatedRecipe["portion"] = actualValue--;
+      // TODO: csökkentés.
     }
 
+    for (let i = 0; i < updatedRecipe.ingredients.length; i++) {
+      updatedRecipe.ingredients[i]["amount"] = ingredients[i];
+    }
+    console.log(updatedRecipe);
     setRecipe(updatedRecipe);
   };
 
