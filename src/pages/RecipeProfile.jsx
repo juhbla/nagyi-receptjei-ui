@@ -8,7 +8,8 @@ import NumberAddOnInput from "../components/common/NumberAddOnInput";
 
 import { getRecipe } from "../services/recipeService";
 import { createComment, deleteComment } from "../services/commentService";
-import { formatDate, roundToOneDecimal } from "../util/dateUtil";
+import { formatDate } from "../util/dateUtil";
+import { roundToOneDecimal } from "../util/mathUtil";
 
 import endpoints from "../config/api.endpoints";
 
