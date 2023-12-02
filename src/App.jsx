@@ -23,7 +23,7 @@ const App = () => {
           { name: LOGIN_PAGE.name, path: LOGIN_PAGE.path },
         ]}
       />
-      <main>
+      <main className="container-fluid">
         <Routes>
           <Route
             exact

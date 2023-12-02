@@ -5,6 +5,7 @@ import Header from "../components/common/Header";
 import AddRecipeModalForm from "../components/AddRecipeModalForm";
 
 import { getRecipes } from "../services/recipeService";
+import "./HomeStyle.css";
 
 export function Home({ pageName }) {
   const [recipes, setRecipes] = useState([]);

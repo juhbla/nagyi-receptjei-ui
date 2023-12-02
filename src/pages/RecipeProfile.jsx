@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import TextInput from "../components/common/TextInput";
 import TextArea from "../components/common/TextArea";
 import Button from "../components/common/Button";
 import NumberAddOnInput from "../components/common/NumberAddOnInput";
@@ -15,7 +14,7 @@ import endpoints from "../config/api.endpoints";
 
 import noImage from "../images/no-image.png";
 
-import "../../src/components/common/RecipeProfileStyle.css";
+import "./RecipeProfileStyle.css";
 
 export function RecipeProfile({ pageName }) {
   const { id: idRouteParameter } = useParams();
@@ -139,92 +138,97 @@ export function RecipeProfile({ pageName }) {
   }
 
   return (
-    <div className="container">
-      <section className="row">
-        <article className="col-sm-12 col-md-12 col-lg-12">
-          <div className="cardBox">
-            <h1>{title}</h1>
-            <img
-              src={imageSource}
-              className="card-img-top"
-              style={{
-                width: "500px",
-                height: "300px",
-                display: "block",
-                margin: "20px 0",
-                objectFit: "contain",
-              }}
-              alt={title}
-            />
-            <div className="units">
-              <h3> Elkészítési idő: {prepTime} perc</h3>
-              <h4>
-                <NumberAddOnInput
-                  name="portion"
-                  value={portion}
-                  minValue={1}
-                  addOnText="adag"
-                  onChange={handlePortionChanged}
-                />
-              </h4>
-            </div>
-            <h4>Hozzávalók</h4>
-            <ul>
-              {ingredients.map((ingredient) => (
-                <li key={ingredient.id}>
-                  <div className="row">
-                    <div className="col-6">
-                      <TextInput
-                        type="text"
-                        placeholder={ingredient.amount.toString()}
-                        disabled={true}
-                      />
-                    </div>
-                    <div className="col-6">
-                      <p>{`${ingredient.unit} ${ingredient.name}`}</p>
-                    </div>
-                  </div>
-                </li>
-              ))}
-            </ul>
-            <h4>Elkészítés:</h4>
-            <p>{content}</p>
-          </div>
-          <form onSubmit={handleSubmitDeleteComment} noValidate>
-            <div className="comment">
-              <h4>Hozzászólások</h4>
-              <ul className="commentList">
-                {recipe.comments.map((comment) => (
-                  <div key={comment.id} className="comment-item">
-                    <span className="username">{comment.user.username}</span>
-                    <p className="content">{comment.content}</p>
-                    <span className="createdDateTime">
-                      {formatDate(comment.createdDateTime)}
-                    </span>
-                    <Button
-                      text="Komment törlése"
-                      className="btn btn-danger"
-                      id={comment.id.toString()}
-                      onClick={handleActualCommentIdSetting}
-                    />
-                  </div>
+    <Fragment>
+      <div className="container">
+        <div className="cardBox">
+          <section className="row">
+            <article className="col-sm-12 col-md-12 col-lg-6">
+              <h1>{title}</h1>
+            </article>
+          </section>
+          <section className="row">
+            <article className="col-sm-12 col-md-12 col-lg-6">
+              <img
+                src={imageSource}
+                className="card-img-top"
+                style={{
+                  width: "500px",
+                  height: "300px",
+                  display: "block",
+                  margin: "20px 0",
+                  objectFit: "contain",
+                }}
+                alt={title}
+              />
+            </article>
+            <article className="col-sm-12 col-md-12 col-lg-6">
+              <NumberAddOnInput
+                name="portion"
+                value={portion}
+                minValue={1}
+                addOnText="adag"
+                onChange={handlePortionChanged}
+              />
+              <h4>Hozzávalók</h4>
+              <ul>
+                {ingredients.map((ingredient) => (
+                  <li key={ingredient.id}>
+                    <p>
+                      <span style={{ color: "#dc3545", fontWeight: "bold" }}>
+                        {ingredient.amount}
+                      </span>
+                      {` ${ingredient.unit} ${ingredient.name}`}
+                    </p>
+                  </li>
                 ))}
               </ul>
-            </div>
-          </form>
-          <form onSubmit={handleSubmitNewComment} noValidate>
-            <div className="new-comment">
-              <TextArea
-                name="content"
-                maxLength={250}
-                onChange={handleTextChange}
-                value={comment.content}
-              />
-              <Button text="Küldés" className="btn btn-primary" />
-            </div>
-          </form>
-        </article>
-      </section>
-    </div>
+            </article>
+          </section>
+          <section className="row">
+            <article className="col-sm-12 col-md-12 col-lg-12">
+              <h3> Elkészítési idő: {prepTime} perc</h3>
+              <p style={{ textAlign: "justify" }}>{content}</p>
+            </article>
+          </section>
+        </div>
+        <section className="row">
+          <article className="col-sm-12 col-md-12 col-lg-12">
+            <form onSubmit={handleSubmitDeleteComment} noValidate>
+              <div className="comment">
+                <h4>Hozzászólások</h4>
+                <ul className="commentList">
+                  {recipe.comments.map((comment) => (
+                    <div key={comment.id} className="comment-item">
+                      <span className="username">{comment.user.username}</span>
+                      <p className="content">{comment.content}</p>
+                      <span className="createdDateTime">
+                        {formatDate(comment.createdDateTime)}
+                      </span>
+                      <Button
+                        text="Komment törlése"
+                        className="btn btn-danger"
+                        id={comment.id.toString()}
+                        onClick={handleActualCommentIdSetting}
+                      />
+                    </div>
+                  ))}
+                </ul>
+              </div>
+            </form>
+            <form onSubmit={handleSubmitNewComment} noValidate>
+              <div className="new-comment">
+                <TextArea
+                  name="content"
+                  maxLength={250}
+                  onChange={handleTextChange}
+                  value={comment.content}
+                />
+                <Button text="Küldés" className="btn btn-primary" />
+              </div>
+            </form>
+          </article>
+        </section>
+      </div>
+    </Fragment>
   );
 }
