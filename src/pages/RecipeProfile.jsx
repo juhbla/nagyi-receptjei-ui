@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+import TextInput from "../components/common/TextInput";
 import TextArea from "../components/common/TextArea";
 import Button from "../components/common/Button";
 import NumberAddOnInput from "../components/common/NumberAddOnInput";
@@ -159,7 +160,18 @@ export function RecipeProfile({ pageName }) {
             <ul>
               {ingredients.map((ingredient) => (
                 <li key={ingredient.id}>
-                  {`${ingredient.amount} ${ingredient.unit} ${ingredient.name}`}
+                  <div className="row">
+                    <div className="col-6">
+                      <TextInput
+                        type="text"
+                        placeholder={ingredient.amount.toString()}
+                        disabled={true}
+                      />
+                    </div>
+                    <div className="col-6">
+                      <p>{`${ingredient.unit} ${ingredient.name}`}</p>
+                    </div>
+                  </div>
                 </li>
               ))}
             </ul>

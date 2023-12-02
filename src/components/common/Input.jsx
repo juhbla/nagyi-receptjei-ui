@@ -7,6 +7,8 @@ export function Input({
   minLength,
   maxLength,
   onChange,
+  disabled = false,
+  additionalStyle = {},
 }) {
   return (
     <input
@@ -19,6 +21,8 @@ export function Input({
       minLength={minLength}
       maxLength={maxLength}
       onChange={onChange}
+      disabled={disabled}
+      style={additionalStyle}
     />
   );
 }

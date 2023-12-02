@@ -1,7 +1,7 @@
 import { Input } from "./Input";
 
 const TextInput = ({
-  type,
+  type = "text",
   name,
   value,
   maxLength,
@@ -9,6 +9,8 @@ const TextInput = ({
   placeholder,
   errorMessage = "",
   onChange,
+  disabled = false,
+  additionalStyle = {},
 }) => {
   return (
     <>
@@ -24,6 +26,8 @@ const TextInput = ({
           minLength={0}
           maxLength={maxLength}
           onChange={onChange}
+          disabled={disabled}
+          additionalStyle={additionalStyle}
         />
       </div>
       {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
