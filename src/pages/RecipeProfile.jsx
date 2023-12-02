@@ -175,7 +175,7 @@ export function RecipeProfile({ pageName }) {
                   <li key={ingredient.id}>
                     <p>
                       <span style={{ color: "#dc3545", fontWeight: "bold" }}>
-                        {ingredient.amount}
+                        {ingredient.amount.toString().slice(0, 4)}
                       </span>
                       {` ${ingredient.unit} ${ingredient.name}`}
                     </p>
