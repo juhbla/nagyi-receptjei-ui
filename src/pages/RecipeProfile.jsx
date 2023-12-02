@@ -9,7 +9,7 @@ import NumberAddOnInput from "../components/common/NumberAddOnInput";
 import { getRecipe } from "../services/recipeService";
 import { createComment, deleteComment } from "../services/commentService";
 import { formatDate } from "../util/dateUtil";
-import { roundToOneDecimal } from "../util/mathUtil";
+import { calculateIngredientAmountsForOnePortion } from "../util/recipeUtil";
 
 import endpoints from "../config/api.endpoints";
 
@@ -57,6 +57,9 @@ export function RecipeProfile({ pageName }) {
 
     populateRecipe();
   }, [idRouteParameter]);
+
+  const { title, content, prepTime, portion, photoFileName, ingredients } =
+    recipe;
 
   const handleTextChange = ({ currentTarget: input }) => {
     const updatedComment = { ...comment };
@@ -107,29 +110,24 @@ export function RecipeProfile({ pageName }) {
       ...recipe,
     };
     const ingredients = [...updatedRecipe.ingredients];
+    const amountsForOnePortion = calculateIngredientAmountsForOnePortion(
+      ingredients,
+      portion,
+    );
 
     if (direction === "up") {
-      updatedRecipe["portion"] = actualValue++;
-      for (let i = 0; i < ingredients.length; i++) {
-        const amount = ingredients[i].amount;
-        const amountOfOnePortion = amount / previousValue;
-        const result = amountOfOnePortion * actualValue;
-        ingredients[i] = roundToOneDecimal(result);
-      }
+      updatedRecipe["portion"] = actualValue;
     } else {
-      updatedRecipe["portion"] = actualValue--;
-      // TODO: csökkentés.
+      updatedRecipe["portion"] = actualValue - 1;
     }
-
+    for (let i = 0; i < amountsForOnePortion.length; i++) {
+      ingredients[i].amount = amountsForOnePortion[i] * actualValue;
+    }
     for (let i = 0; i < updatedRecipe.ingredients.length; i++) {
-      updatedRecipe.ingredients[i]["amount"] = ingredients[i];
+      updatedRecipe.ingredients[i]["amount"] = ingredients[i].amount;
     }
-    console.log(updatedRecipe);
     setRecipe(updatedRecipe);
   };
-
-  const { title, content, prepTime, portion, photoFileName, ingredients } =
-    recipe;
 
   const { API_ROOT, PHOTOS } = endpoints;
   let imageSource;
