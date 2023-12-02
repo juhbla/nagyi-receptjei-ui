@@ -135,6 +135,11 @@ const AddRecipeModalForm = ({ title }) => {
             className="btn btn-primary"
             onClick={handleAddIngredient}
           />
+          <ul>
+            {recipe.ingredients.map((ingredient) => (
+              <li>{`${ingredient.name} ${ingredient.amount} ${ingredient.unit}`}</li>
+            ))}
+          </ul>
           <TextArea
             name="content"
             maxLength={2000}
