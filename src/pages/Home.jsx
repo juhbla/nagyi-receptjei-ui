@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
+
 import RecipeCard from "../components/RecipeCard";
 import AddRecipeCard from "../components/AddRecipeCard";
 import Header from "../components/common/Header";
 import AddRecipeModalForm from "../components/AddRecipeModalForm";
 
 import { getRecipes } from "../services/recipeService";
+
 import "./HomeStyle.css";
 
-export function Home({ pageName }) {
+const Home = ({ pageName }) => {
   const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
@@ -16,8 +18,8 @@ export function Home({ pageName }) {
         const { data } = await getRecipes();
         const { value } = data;
         setRecipes(value);
-      } catch (e) {
-        console.log("Hiba történt az API hívása során...");
+      } catch (exception) {
+        alert(exception.message);
       }
     };
 
@@ -30,9 +32,7 @@ export function Home({ pageName }) {
     setIsModalOpen(true);
   };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
+  const user = JSON.parse(localStorage.getItem("user"));
 
   return (
     <>
@@ -44,19 +44,24 @@ export function Home({ pageName }) {
           </div>
         </div>
         <section className="row">
-          <article key="0" className="col-sm-12 mt-5  col-md-12 col-lg-4">
-            <AddRecipeCard openModal={openModal} />
-          </article>
+          {user && user.username === "nagyi" && (
+            <article key="0" className="col-sm-12 mt-5  col-md-12 col-lg-4">
+              <AddRecipeCard openModal={openModal} />
+            </article>
+          )}
           {recipes.map((recipe) => (
             <article key={recipe.id} className="col-sm-12 col-md-12 col-lg-4">
-              <RecipeCard recipe={recipe} />
+              <RecipeCard
+                recipe={recipe}
+                shouldShowFileInput={!!(user && user.username === "nagyi")}
+              />
             </article>
           ))}
         </section>
       </div>
-      {isModalOpen && (
-        <AddRecipeModalForm buttonText="OK" closeModal={closeModal} />
-      )}
+      {isModalOpen && <AddRecipeModalForm />}
     </>
   );
-}
+};
+
+export default Home;

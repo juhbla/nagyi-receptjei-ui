@@ -3,23 +3,23 @@ const NumberInput = ({
   value,
   minValue,
   labelText,
-  errorMessage = "",
   onChange,
+  errorMessage = "",
+  required = true,
 }) => {
   return (
     <>
-      <div className="form-group">
-        <label htmlFor={name}>{labelText}</label>
-        <input
-          type="number"
-          className="form-control mt-3"
-          id={name}
-          name={name}
-          value={value}
-          min={minValue}
-          onChange={onChange}
-        />
-      </div>
+      <label htmlFor={name}>{labelText}</label>
+      <input
+        type="number"
+        className="form-control"
+        id={name}
+        name={name}
+        value={value}
+        min={minValue}
+        onChange={onChange}
+        required={required}
+      />
       {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
     </>
   );

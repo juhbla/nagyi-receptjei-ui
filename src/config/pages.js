@@ -9,13 +9,17 @@ const pages = {
     name: "Recept",
     path: "/recipe/:id",
   },
-  REGISTER_PAGE: {
+  REGISTRATION_PAGE: {
     name: "Regisztráció",
-    path: "/register",
+    path: "/registration",
   },
   LOGIN_PAGE: {
     name: "Bejelenkezés",
     path: "/login",
+  },
+  LOGOUT_PAGE: {
+    name: "Kijelentkezés",
+    path: "/logout",
   },
 };
 

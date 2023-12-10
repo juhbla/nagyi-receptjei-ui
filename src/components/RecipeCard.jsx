@@ -9,7 +9,7 @@ import endpoints from "../config/api.endpoints";
 
 import noImage from "../images/no-image.png";
 
-const RecipeCard = ({ recipe }) => {
+const RecipeCard = ({ recipe, shouldShowFileInput = false }) => {
   const [uploadedPhotoFileName, setUploadedPhotoFileName] = useState("");
 
   const handlePhotoUpload = async (e) => {
@@ -51,6 +51,7 @@ const RecipeCard = ({ recipe }) => {
         imageAlt={title}
         contents={contents}
         onChange={handlePhotoUpload}
+        shouldShowFileInput={shouldShowFileInput}
       />
       <Button
         text="Irány a recept!"

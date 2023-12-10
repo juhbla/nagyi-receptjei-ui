@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logoImage from "../../images/logo.png";
-const Navbar = ({ title, homeRoute, routes }) => {
+const Navbar = ({ title, homeRoute, routes, additionalText }) => {
   const [isOpen, setIsOpen] = useState(true);
 
   const getNavbarTogglerClass = () => "navbar-toggler";
@@ -10,6 +10,10 @@ const Navbar = ({ title, homeRoute, routes }) => {
 
   const getNavbarCollapseClass = () =>
     "navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse";
+
+  const displayAdditionalText = () => {
+    return <a className="nav-item nav-link">{additionalText}</a>;
+  };
 
   return (
     <header>
@@ -43,6 +47,7 @@ const Navbar = ({ title, homeRoute, routes }) => {
             }
           >
             <div className="navbar-nav flex-grow">
+              {displayAdditionalText()}
               {routes.map(({ name, path }) => (
                 <Link key={name} className="nav-item nav-link" to={path}>
                   {name}

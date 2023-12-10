@@ -4,13 +4,14 @@ const NumberAddOnInput = ({
   minValue,
   labelText,
   addOnText,
-  errorMessage = "",
   onChange,
+  errorMessage = "",
+  required = true,
 }) => {
   return (
     <>
       <label htmlFor={name}>{labelText}</label>
-      <div className="input-group mb-3">
+      <div className="input-group">
         <input
           type="number"
           className="form-control"
@@ -19,6 +20,7 @@ const NumberAddOnInput = ({
           value={value}
           min={minValue}
           onChange={onChange}
+          required={required}
         />
         <span className="input-group-text">{addOnText}</span>
       </div>

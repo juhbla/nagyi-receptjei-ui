@@ -9,6 +9,7 @@ export function Input({
   onChange,
   disabled = false,
   additionalStyle = {},
+  required = true,
 }) {
   return (
     <input
@@ -16,13 +17,14 @@ export function Input({
       name={name}
       value={value}
       id={id}
-      className="form-control mt-3"
+      className="form-control"
       placeholder={placeholder}
       minLength={minLength}
       maxLength={maxLength}
       onChange={onChange}
       disabled={disabled}
       style={additionalStyle}
+      required={required}
     />
   );
 }

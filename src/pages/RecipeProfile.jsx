@@ -16,7 +16,7 @@ import noImage from "../images/no-image.png";
 
 import "./RecipeProfileStyle.css";
 
-export function RecipeProfile({ pageName }) {
+const RecipeProfile = ({ pageName }) => {
   const { id: idRouteParameter } = useParams();
 
   const [recipe, setRecipe] = useState({
@@ -31,10 +31,12 @@ export function RecipeProfile({ pageName }) {
     createdDateTime: "",
   });
 
+  const user = JSON.parse(localStorage.getItem("user"));
+
   const [comment, setComment] = useState({
     recipeId: parseInt(idRouteParameter),
     content: "",
-    userId: 1, // TODO: később a belépett user id-ja legyen ide tárolva.
+    userId: user ? user.id : 0,
   });
 
   const [actualCommentId, setActualCommentId] = useState(0);
@@ -49,8 +51,8 @@ export function RecipeProfile({ pageName }) {
         }
         const { value } = data;
         setRecipe(value);
-      } catch (e) {
-        console.log("Hiba az API hívása során...");
+      } catch (exception) {
+        alert(exception.message);
       }
     };
 
@@ -79,7 +81,7 @@ export function RecipeProfile({ pageName }) {
       updatedRecipe.comments.push(value);
       setRecipe(updatedRecipe);
     } catch (exception) {
-      console.log("Hiba történt:" + exception);
+      alert(exception.message);
     }
   };
 
@@ -204,31 +206,37 @@ export function RecipeProfile({ pageName }) {
                       <span className="createdDateTime">
                         {formatDate(comment.createdDateTime)}
                       </span>
-                      <Button
-                        text="Komment törlése"
-                        className="btn btn-danger"
-                        id={comment.id.toString()}
-                        onClick={handleActualCommentIdSetting}
-                      />
+                      {user && user.username === "nagyi" && (
+                        <Button
+                          text="Komment törlése"
+                          className="btn btn-danger"
+                          id={comment.id.toString()}
+                          onClick={handleActualCommentIdSetting}
+                        />
+                      )}
                     </div>
                   ))}
                 </ul>
               </div>
             </form>
-            <form onSubmit={handleSubmitNewComment} noValidate>
-              <div className="new-comment">
-                <TextArea
-                  name="content"
-                  maxLength={250}
-                  onChange={handleTextChange}
-                  value={comment.content}
-                />
-                <Button text="Küldés" className="btn btn-primary" />
-              </div>
-            </form>
+            {user && (
+              <form onSubmit={handleSubmitNewComment} noValidate>
+                <div className="new-comment">
+                  <TextArea
+                    name="content"
+                    maxLength={250}
+                    onChange={handleTextChange}
+                    value={comment.content}
+                  />
+                  <Button text="Küldés" className="btn btn-primary" />
+                </div>
+              </form>
+            )}
           </article>
         </section>
       </div>
     </Fragment>
   );
-}
+};
+
+export default RecipeProfile;

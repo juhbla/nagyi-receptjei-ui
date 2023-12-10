@@ -8,18 +8,18 @@ import Button from "./common/Button";
 
 import { createRecipe } from "../services/recipeService";
 
-const AddRecipeModalForm = ({ title }) => {
+const AddRecipeModalForm = () => {
   const [recipe, setRecipe] = useState({
     title: "",
     prepTime: 0,
-    portion: 0,
+    portion: 1,
     ingredients: [],
     content: "",
   });
 
   const [ingredient, setIngredient] = useState({
     name: "",
-    amount: 0,
+    amount: 1,
     unit: "",
   });
 
@@ -59,16 +59,20 @@ const AddRecipeModalForm = ({ title }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      const { data } = await createRecipe(recipe);
-      setRecipe({ ...data });
-    } catch (exception) {
-      console.log("Hiba történt:" + exception);
+    const { data } = await createRecipe(recipe);
+    const { statusCode } = data;
+
+    if (statusCode === 400) {
+      alert("Hiba történt!");
+    }
+
+    if (statusCode === 200) {
+      window.location.href = "/";
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} noValidate>
+    <form onSubmit={handleSubmit}>
       <div
         className="modal-dialog modal-content"
         style={{
@@ -77,32 +81,41 @@ const AddRecipeModalForm = ({ title }) => {
           float: "left",
           left: "50%",
           top: "50%",
-          transform: " translate(-50%, -50%)",
+          transform: " translate(-50%, 75%)",
         }}
       >
         <div className="modal-header">
-          <h5 className="modal-title">{title}</h5>
+          <h5 className="modal-title">Új recept</h5>
         </div>
         <div className="modal-body">
-          <TextInput
-            name="title"
-            maxLength={25}
-            labelText="Recept neve"
-            onChange={handleRecipeTextChange}
-          />
-          <NumberAddOnInput
-            name="prepTime"
-            minValue={0}
-            labelText="Elkészítési idő"
-            addOnText="perc"
-            onChange={handleRecipeNumberChange}
-          />
-          <NumberInput
-            name="portion"
-            labelText="Adag"
-            minValue={1}
-            onChange={handleRecipeNumberChange}
-          />
+          <div className="row">
+            <div className="col-sm-12 col-md-4 col-lg-4">
+              <TextInput
+                name="title"
+                maxLength={25}
+                labelText="Recept neve"
+                onChange={handleRecipeTextChange}
+              />
+            </div>
+            <div className="col-sm-12 col-md-4 col-lg-4">
+              <NumberAddOnInput
+                name="prepTime"
+                minValue={0}
+                labelText="Elkészítési idő"
+                addOnText="perc"
+                onChange={handleRecipeNumberChange}
+              />
+            </div>
+            <div className="col-sm-12 col-md-4 col-lg-4">
+              <NumberInput
+                name="portion"
+                labelText="Adag"
+                minValue={1}
+                value={recipe.portion}
+                onChange={handleRecipeNumberChange}
+              />
+            </div>
+          </div>
           <div className="row">
             <div className="col-sm-12 col-md-4 col-lg-4">
               <TextInput
@@ -110,6 +123,7 @@ const AddRecipeModalForm = ({ title }) => {
                 labelText="Hozzávaló neve"
                 value={ingredient.name}
                 onChange={handleIngredientTextChange}
+                required={false}
               />
             </div>
             <div className="col-sm-12 col-md-4 col-lg-4">
@@ -119,6 +133,7 @@ const AddRecipeModalForm = ({ title }) => {
                 labelText="Mennyiség"
                 value={ingredient.amount}
                 onChange={handleIngredientNumberChange}
+                required={false}
               />
             </div>
             <div className="col-sm-12 col-md-4 col-lg-4">
@@ -127,29 +142,41 @@ const AddRecipeModalForm = ({ title }) => {
                 labelText="Egység"
                 value={ingredient.unit}
                 onChange={handleIngredientTextChange}
+                required={false}
               />
             </div>
           </div>
-          <Button
-            text="Új hozzávaló"
-            className="btn btn-primary"
-            onClick={handleAddIngredient}
-          />
-          <ul>
-            {recipe.ingredients.map((ingredient) => (
-              <li>{`${ingredient.name} ${ingredient.amount} ${ingredient.unit}`}</li>
-            ))}
-          </ul>
-          <TextArea
-            name="content"
-            maxLength={2000}
-            labelText="Elkészítési mód"
-            onChange={handleRecipeTextChange}
-          />
+          <div className="row">
+            <div className="col-sm-12 col-md-4 col-lg-12">
+              <ol className="mt-3 mb-3" style={{ listStyleType: "inherit" }}>
+                {recipe.ingredients.map((ingredient) => (
+                  <li>{`${ingredient.name} ${ingredient.amount} ${ingredient.unit}`}</li>
+                ))}
+              </ol>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-sm-12 col-md-4 col-lg-12">
+              <Button
+                text="Új hozzávaló"
+                className="btn btn-primary"
+                onClick={handleAddIngredient}
+              />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-sm-12 col-md-12 col-lg-12">
+              <TextArea
+                name="content"
+                maxLength={2000}
+                labelText="Elkészítési mód"
+                onChange={handleRecipeTextChange}
+              />
+            </div>
+          </div>
         </div>
         <div className="modal-footer">
-          <Button className="btn btn-primary" text="Recept hozzáadása" />
-          <Button className="btn btn-secondary" text="Mégse" />
+          <Button className="btn btn-primary" text="Hozzáadás" />
         </div>
       </div>
     </form>
